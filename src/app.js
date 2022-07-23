@@ -6,7 +6,7 @@ const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // Define paths for Express Config
 const viewsPath = path.join(__dirname, '../templates/views');
@@ -42,7 +42,7 @@ app.get('/weather', (req, res) => {
     const city = req.query.city
     if(!city || city === undefined) {
         return res.send({
-            Error: 'Please provide name of city'
+            error: 'Please provide name of city'
         })
     }
     geocode(city, (error, {latitude, longitude, location} = {}) => {
@@ -55,7 +55,7 @@ app.get('/weather', (req, res) => {
         forecast(latitude, longitude, (error, {weather, temperature, feelslike} = {}) => {
             if(error) {
                 return res.send({
-                    Error: 'Something went wrong'
+                    error
                 })
             }
 

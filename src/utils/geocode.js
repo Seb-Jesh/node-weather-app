@@ -9,7 +9,7 @@ const geocode = (city, callback) => {
         if(error) {
             callback('Unable to connect. Check your network settings.', undefined);
         } else if(body.features.length === 0) {
-            callback('Something went wrong. Please try again', undefined);
+            callback('Please provide a valid name of a city.', undefined);
         } else {
             callback(undefined, {
                 latitude: body.features[0].center[1],
